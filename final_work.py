@@ -1,31 +1,23 @@
-# This is a sample Python script.
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 
 from flask import Flask
 from flask import request
-from flask import render_template  # , flash
+from flask import render_template
 # импорт библиотек для модели
-# import sklearn
 from sklearn.ensemble import RandomForestRegressor
 import pickle
 
-# загрузка модели
-# Load from file
+# восстановление модели
 ForestRegressor_model = RandomForestRegressor(n_estimators=100, min_samples_leaf=1, min_samples_split=2, max_depth=10,
                                               random_state=10)
 pkl_filename = './model/RandomForestRegressor_model.pkl'
-print(pkl_filename)
+
+# загрузка модели
 with open(pkl_filename, 'rb') as file:
     ForestRegressor_model = pickle.load(file)
 
 app = Flask(__name__)
 
-
-# app.config['SECRET_KEY'] = 'fdgdfgdfggf786hfg6hfg6h7f'
-
-
+#функция прогнозирования значений
 def prognoz(x1, x2, x3, x4):
     y_prognoz = ForestRegressor_model.predict([[x1, x2, x3, x4]])
     return y_prognoz[0][0], y_prognoz[0][1]
@@ -38,15 +30,12 @@ def index():
     messageD = ''
     messageH = ''
     if request.method == 'POST':
-        print(request.form)
-        # username = request.form.get('username')
         IW = request.form.get('IW')
         IF = request.form.get('IF')
         VW = request.form.get('VW')
         FP = request.form.get('FP')
         if IW != '' and IF != '' and VW != '' and FP != '':
             message = 'Все поля заполнены'
-            # flash('Все поля заполнены')
             x1 = int(IW)
             x2 = int(IF)
             x3 = float(VW)
@@ -56,7 +45,7 @@ def index():
             messageH = str(y2)
         else:
             message = 'Не все поля заполнены'
-            # flash('Не все поля заполнены')
+
     return render_template('index.html', message=message, messageD=messageD, messageH=messageH)
 
 

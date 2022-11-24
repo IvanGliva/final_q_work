@@ -1,0 +1,33 @@
+<!doctype html>
+<title>Hello from Flask</title>
+<h1>Расчет параметров сварного шва в процессе электронно-лучевой сварки</h1>
+<h2>Для расчета необходимо ввести параметры и нажать кнопку "Рассчитать"</h2>
+<h2>Результаты расчета отобразятся в соответствующих полях</h2>
+<body>
+
+<form method="POST" action="">
+    <!--<p><label>Имя: </label> <input type="text" name="username" value="" requied/> -->
+    <p><label>Величина сварочного тока: </label> <input type="number" name="IW" requied/>
+    <p><label>Ток фокусировки электронного пучка : </label> <input type="number" name="IF" value="" requied/>
+    <p><label>Скорость сварки : </label> <input type="text" inputmode = "numeric" name="VW" value="" requied/>
+    <p><label>Расстояние от поверхности образцов до электронно-оптической системы: </label> <input type="number" name="FP" value="" requied/>
+
+<!-- <p><label>Сообщение:</label>
+<p><textarea name="message1" rows=7 cols=40></textarea>   -->
+    <p><input type="submit" value="Рассчитать"/>
+     {% if message %}
+        <p>{{ message }}<p>
+     {% endif %}
+
+    <p><label>Глубина шва : </label>
+    {% if messageD %} <p>{{ messageD }} <p> {% endif %}
+    <!--<input type="float" name="Depth" value=""/>   -->
+    <p><label>Ширина шва : </label>
+    {% if messageH %} <p>{{ messageH }}<p> {% endif %}
+    <!--<input type="float" name="Width" value=""/>  -->
+</form>
+
+<!--{% for msg in get_flashed_messages() %}
+<div class="flash">{{msg}}</div>
+{% endfor %} -->
+ </body>
